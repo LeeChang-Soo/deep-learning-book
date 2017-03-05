@@ -1,4 +1,4 @@
-""" Submodule containing additional PyTorch utilities
+""" Submodule containing NumPy functions
 """
 # Sebastian Raschka 2016-2017
 #
@@ -9,3 +9,5 @@
 # Author: Sebastian Raschka <sebastianraschka.com>
 #
 # License: MIT
+
+from .progress import progress

@@ -1,8 +1,8 @@
 [![Build Status](https://travis-ci.org/rasbt/deep-learning-book.svg?branch=master)](https://travis-ci.org/rasbt/deep-learning-book)
-![Python 2.7](https://img.shields.io/badge/python-2.7-blue.svg)
-![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)
-![TensorFlow](https://img.shields.io/badge/TensorFlow-0.12.1-blue.svg)
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Python 2.7](https://img.shields.io/badge/Python-2.7-blue.svg)
+![Python 3.6](https://img.shields.io/badge/Python-3.6-blue.svg)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-1.0.0-blue.svg)
+![License](https://img.shields.io/badge/Code%20License-MIT-blue.svg)
 [![Mailing List](https://img.shields.io/badge/-Mailing%20List-lightgrey.svg)](https://groups.google.com/forum/#!forum/ann-and-dl-book)
 
 # Introduction to Artificial Neural Networks and Deep Learning: A Practical Guide with Applications in Python
@@ -65,18 +65,41 @@ Paperback: est. 2017-2018
 
 - Reinforcement Learning
 
-- Appendix A: Mathematical Notation [[PDF](https://sebastianraschka.com/pdf/books/dlb/appendix_math_notation.pdf)]
+- Appendix A: Mathematical Notation [[PDF](https://sebastianraschka.com/pdf/books/dlb/appendix_a_math_notation.pdf)] [[EPUB](https://sebastianraschka.com/pdf/books/dlb/appendix_a_math_notation.epub)]
 
-- Appendix B: Algebra Basics
+- Appendix B: Algebra Basics [[PDF](https://sebastianraschka.com/pdf/books/dlb/appendix_b_algebra.pdf)] [[EPUB](https://sebastianraschka.com/pdf/books/dlb/appendix_b_algebra.epub)]
+
 
 - Appendix C: Linear Algebra Essentials
 
-- Appendix D: Calculus and Differentiation Primer
+- Appendix D: Calculus and Differentiation Primer [[PDF](https://sebastianraschka.com/pdf/books/dlb/appendix_d_calculus.pdf)] [[EPUB](https://sebastianraschka.com/pdf/books/dlb/appendix_d_calculus.epub)]
 
 - Appendix E: Python Setup
 
 - Appendix F: NumPy Overview
 
-- Appendix G: TensorFlow Basics [[PDF](https://sebastianraschka.com/pdf/books/dlb/appendix_tensorflow.pdf)]
+- Appendix G: TensorFlow Basics [[PDF](https://sebastianraschka.com/pdf/books/dlb/appendix_g_tensorflow.pdf)] [[EPUB](https://sebastianraschka.com/pdf/books/dlb/appendix_g_tensorflow.epub)]
 
 - Appendix H: Cloud Computing
+
+
+## License
+
+### Code
+
+All code in this repository (including the code examples in Jupyter Notebooks) is open source content, released under the [MIT software license](LICENSE). In short, the permissive MIT license allows you to do anything with the code with proper attribution and without warranty; please check the MIT [LICENSE](LICENSE) notice for further details.
+
+### Text and Graphics
+
+All non-code content and creative work in this repository, including text and graphics, is under exclusive copyright by the author, Sebastian Raschka. Unless noted otherwise, text content shared in this repository is intended for personal use only. You may use, modify, or share short text passages of this work with proper attribution to the author. However, if you are planning to modify and/or share substantial portions of this book for other writings, such as blog posts, magazine article, or teaching material, contact the author for permission.
+
+Figures and graphics marked by a *Creative Commons Attribution-ShareAlike 4.0 International* are free to share under the respective license terms (as listed in the *Creative Commons Attribution-ShareAlike 4.0 International* section in the [LICENSE](LICENSE) file) and proper attribution.
+
+
+## Acknowledgements
+
+I would like to give my special thanks to the readers, who caught various typos and errors and offered suggestions for clarifying my writing.
+
+- Appendix A: Artem Sobolev, Ryan Sun
+- Appendix B: Brett Miller, Ryan Sun
+- Appendix D: Marcel Blattner, Ignacio Campabadal, Ryan Sun
