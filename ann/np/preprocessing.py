@@ -210,6 +210,185 @@ def l2_normalize(ary):
     return ary / magnitudes
 
 
+def minmax_scaling(ary, feature_minmax=(0., 1.),
+                   precomputed_min=None, precomputed_max=None):
+    """Rescales features to a fixed range of values
+
+    Parameters
+    ----------
+    ary : 2D array, shape=(n_samples, n_features)
+        The input array to be rescaled
+    feature_minmax : tuple (default: (0., 1.))
+        The new min and max values for each feature column.
+    precomputed_min : array, shape=(n_features,) or None (default: None)
+        Precomputed feature minimum values that are used for the
+        rescaling if not None
+    precomputed_max : array, shape=(n_features,) or None (default: None)
+        Precomputed feature maximum values that are used for the
+        rescaling if not None
+
+    Returns
+    -------
+    rescaled_ary, precomputed_min, precomputed_max
+        Returns the rescaled array, and the rescaling parameters
+        for re-use.
+
+    Examples
+    --------
+    >>> train_ary = np.array([[1, 1, 1],
+    ...                       [4, 5, 6]])
+    >>> test_ary = np.array([[1, 2, 3],
+    ...                      [4, 3, 4]])
+    >>> train_rescaled, tmin, tmax = minmax_scaling(train_ary,
+    ...                                             feature_minmax=(0.1, 0.9))
+    >>> train_rescaled
+    array([[ 0.1,  0.1,  0.1],
+           [ 0.9,  0.9,  0.9]])
+    >>> test_rescaled, _, _ = minmax_scaling(test_ary,
+    ...                                      feature_minmax=(0.1, 0.9),
+    ...                                      precomputed_min=tmin,
+    ...                                      precomputed_max=tmax)
+    >>> test_rescaled
+    array([[ 0.1 ,  0.3 ,  0.42],
+           [ 0.9 ,  0.5 ,  0.58]])
+
+    """
+    if precomputed_min is None:
+        precomputed_min = ary.min(axis=0)
+    if precomputed_max is None:
+        precomputed_max = ary.max(axis=0)
+
+    numerator = (ary - precomputed_min) * (feature_minmax[1] -
+                                           feature_minmax[0])
+    denominator = (precomputed_max - precomputed_min)
+    rescaled_ary = feature_minmax[0] + numerator/denominator
+
+    return rescaled_ary, precomputed_min, precomputed_max
+
+
+def standardize(ary, precomputed_mean=None, precomputed_std=None):
+    """Rescales features to z-scores with zero-mean and unit variance
+
+    Parameters
+    ----------
+    ary : 2D array, shape=(n_samples, n_features)
+        The input array to be rescaled
+    precomputed_mean : array, shape=(n_features,) or None (default: None)
+        Precomputed feature mean values that are used for the
+        rescaling if not None
+    precomputed_std : array, shape=(n_features,) or None (default: None)
+        Precomputed feature standard deviations that are used for the
+        rescaling if not None
+
+    Returns
+    -------
+    rescaled_ary, precomputed_mean, precomputed_std
+        Returns the rescaled array, and the rescaling parameters
+        for re-use.
+
+    Examples
+    --------
+    >>> train_ary = np.array([[1, 1, 1],
+    ...                       [4, 5, 6]])
+    >>> test_ary = np.array([[1, 2, 3],
+    ...                      [4, 3, 4]])
+    >>> train_rescaled, tmean, tstd = standardize(train_ary)
+    >>> train_rescaled
+    array([[-1., -1., -1.],
+           [ 1.,  1.,  1.]])
+    >>> test_rescaled, _, _ = standardize(test_ary,
+    ...                                   precomputed_mean=tmean,
+    ...                                   precomputed_std=tstd)
+    >>> test_rescaled
+    array([[-1. , -0.5, -0.2],
+           [ 1. ,  0. ,  0.2]])
+
+    """
+
+    if precomputed_std is None:
+        precomputed_std = ary.std(axis=0, ddof=0)
+    if precomputed_mean is None:
+        precomputed_mean = ary.mean(axis=0)
+
+    scaled_ary = (ary - precomputed_mean) / precomputed_std
+
+    return scaled_ary, precomputed_mean, precomputed_std
+
+
+def subsampling_frequent_tokens(ary, threshold=1e-5,
+                                token_counts=None, seed=None):
+    """ Remove frequent tokens (words) from a training corpus
+
+    Description
+    -----------
+    This is an implementation of Mikolov et al's simple subsampling technique
+    proposed in the improved skip-gram model for Word2Vec in
+    - Mikolov, Tomas, Ilya Sutskever, Kai Chen, Greg S. Corrado,
+      and Jeff Dean. "Distributed representations of words and
+      phrases and their compositionality." In Advances in neural
+      information processing systems, pp. 3111-3119. 2013.
+    Using this empirical subsampling technique, each token t (or word)
+    in the corpus is removed with a probability
+    P(t)= 1 - sqrt(threshold/frequency(t)).
+
+    Parameters
+    ----------
+    ary : array-like, shape=[n_samples, n_tokens]
+        An array or list of list in which each row contains
+        an arbitrary number of words or tokens.
+    threshold : float (default: 1e-5)
+        A positive float as subsampling threshold. The higher
+        the threshold, the higher the probability of removing
+        a given word.
+    token_counts : dict or None (default: None)
+        A dictionary with tokens as keys and token counts
+        as values, which can optionally be provided to save
+        computational costs if such a dictionary was
+        already pre-computed.
+    seed : int or None (default: None)
+        A random seed for the pseudo-random number generator.
+
+    Returns
+    -------
+    list, shape=(n_samples, n_tokens)
+        A list of list containing the remaining, infrequent tokens that
+        have not been removed from the dataset.
+
+    Examples:
+    ---------
+    >>> ary = [['this', 'is', 'is', 'a', 'test'],
+    ...        ['test', 'hello', 'world']]
+    >>> subsampling_frequent_tokens(ary, threshold=0.1, seed=1)
+    [['this', 'is', 'a'], ['hello', 'world']]
+    >>> ary = ['this', 'is', 'is', 'a',
+    ...        'test', 'test', 'hello', 'world']
+    >>> subsampling_frequent_tokens([ary], threshold=0.1, seed=1)[0]
+    ['this', 'is', 'a', 'hello', 'world']
+
+    """
+    rng = np.random.RandomState(seed)
+
+    if token_counts is None:
+        token_counts = {}
+        for row in ary:
+            for token in row:
+                token_counts[token] = token_counts.get(token, 0) + 1
+
+    total_count = float(sum((token_counts[k] for k in token_counts)))
+    token_counts = {k: token_counts[k] / total_count for k in token_counts}
+
+    def compute_proba(x):
+        return 1 - np.sqrt(threshold / token_counts[x])
+
+    subsampled = []
+    for row in ary:
+        new_row = [token for token in row
+                   if compute_proba(token) < rng.rand()]
+        subsampled.append(new_row)
+
+    return subsampled
+
+
 if __name__ == '__main__':
     import doctest
     doctest.testmod()
