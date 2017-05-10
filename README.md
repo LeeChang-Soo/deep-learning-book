@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/rasbt/deep-learning-book.svg?branch=master)](https://travis-ci.org/rasbt/deep-learning-book)
 ![Python 2.7](https://img.shields.io/badge/Python-2.7-blue.svg)
 ![Python 3.6](https://img.shields.io/badge/Python-3.6-blue.svg)
-![TensorFlow](https://img.shields.io/badge/TensorFlow-1.0.0-blue.svg)
+![TensorFlow](https://img.shields.io/badge/TensorFlow-1.1.0-blue.svg)
 ![License](https://img.shields.io/badge/Code%20License-MIT-blue.svg)
 [![Mailing List](https://img.shields.io/badge/-Mailing%20List-lightgrey.svg)](https://groups.google.com/forum/#!forum/ann-and-dl-book)
 
@@ -76,12 +76,13 @@ Paperback: est. 2017-2018
 
 - Appendix E: Python Setup
 
-- Appendix F: NumPy Overview
+- Appendix F: Introduction to NumPy [[PDF](https://sebastianraschka.com/pdf/books/dlb/appendix_f_numpy-intro.pdf)] [[EPUB](https://sebastianraschka.com/pdf/books/dlb/appendix_f_numpy-intro.epub)] [[Code Notebook](code/appendix_f_numpy-intro/appendix_f_numpy-intro.ipynb)]
 
 - Appendix G: TensorFlow Basics [[PDF](https://sebastianraschka.com/pdf/books/dlb/appendix_g_tensorflow.pdf)] [[EPUB](https://sebastianraschka.com/pdf/books/dlb/appendix_g_tensorflow.epub)] [[Code Notebook](code/appendix_g_tensorflow-basics/appendix_g_tensorflow-basics.ipynb)]
 
 - Appendix H: Cloud Computing [[PDF](https://sebastianraschka.com/pdf/books/dlb/appendix_h_cloud-computing.pdf)] [[EPUB](https://sebastianraschka.com/pdf/books/dlb/appendix_h_cloud-computing.epub)]
 
+- [Model Zoo](code/model_zoo): A collection of standalone TensorFlow models in Jupyter Notebooks
 
 ## License
 
@@ -103,4 +104,5 @@ I would like to give my special thanks to the readers, who caught various typos 
 - Appendix A: Artem Sobolev, Ryan Sun
 - Appendix B: Brett Miller, Ryan Sun
 - Appendix D: Marcel Blattner, Ignacio Campabadal, Ryan Sun
+- Appendix F: Guillermo Moncecchi‏, Ged Ridgway
 - Appendix H: Brett Miller
